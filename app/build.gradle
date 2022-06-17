@@ -55,6 +55,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation 'com.github.liangjingkanji:StateLayout:1.2.0'
+    implementation 'com.github.liangjingkanji:Serialize:1.2.3'
+
     implementation project(':mvi-core')
 
 }

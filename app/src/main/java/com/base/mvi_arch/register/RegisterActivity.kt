@@ -1,27 +1,24 @@
-package com.base.mvi_arch.login
+package com.base.mvi_arch.register
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.base.mvi_arch.MainActivity
 import com.base.mvi_arch.base.BaseActivity
-import com.base.mvi_arch.databinding.ActivityLoginBinding
-import com.base.mvi_arch.register.RegisterActivity
+import com.base.mvi_arch.databinding.ActivityRegisterBinding
+import com.base.mvi_arch.login.LoginViewState
 import com.base.mvi_arch.toast
 import com.base.mvi_core.observeEvent
 import com.base.mvi_core.observeState
 import com.drake.serialize.intent.openActivity
-import com.drake.statelayout.state
 
 /**
  * @author jiangshiyu
- * @date 2022/6/16
+ * @date 2022/6/17
  */
-class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
+class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel>() {
     override fun onBundle(bundle: Bundle) {
-
     }
 
     override fun init(savedInstanceState: Bundle?) {
@@ -33,59 +30,64 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     private fun initView() {
         binding?.editUserName?.addTextChangedListener {
-            viewModel.dispatch(LoginViewAction.UpdateUserName(it.toString()))
+            viewModel.dispatch(RegisterViewAction.UpdateUserName(it.toString()))
         }
-
         binding?.editPassword?.addTextChangedListener {
-            viewModel.dispatch(LoginViewAction.UpdatePassword(it.toString()))
+            viewModel.dispatch(RegisterViewAction.UpdatePassword(it.toString()))
         }
-
-        binding?.btnLogin?.setOnClickListener {
-            viewModel.dispatch(LoginViewAction.Login)
+        binding?.editRePassword?.addTextChangedListener {
+            viewModel.dispatch(RegisterViewAction.UpdateRePassword(it.toString()))
         }
-
-        binding?.tvRegister?.setOnClickListener {
-            openActivity<RegisterActivity>()
-            finishAfterTransition()
+        binding?.btnRegister?.setOnClickListener {
+            viewModel.dispatch(RegisterViewAction.Register)
         }
     }
 
     private fun initViewStates() {
         viewModel.viewStates.let { states ->
-            states.observeState(this, LoginViewState::userName) {
+            states.observeState(this, RegisterViewState::userName) {
                 binding?.editUserName?.setText(it)
                 binding?.editUserName?.setSelection(it.length)
             }
-            states.observeState(this, LoginViewState::passWord) {
+            states.observeState(this, RegisterViewState::password) {
                 binding?.editPassword?.setText(it)
                 binding?.editPassword?.setSelection(it.length)
             }
 
-            states.observeState(this, LoginViewState::isLoginEnable) {
-                binding?.btnLogin?.isEnabled = it
-                binding?.btnLogin?.alpha = if (it) 1f else 0.5f
+            states.observeState(this, RegisterViewState::rePassword) {
+                binding?.editRePassword?.setText(it)
+                binding?.editRePassword?.setSelection(it.length)
             }
 
-            states.observeState(this, LoginViewState::passwordTipVisible) {
+            states.observeState(this, RegisterViewState::isRegisterEnable) {
+                binding?.btnRegister?.isEnabled = it
+                binding?.btnRegister?.alpha = if (it) 1f else 0.5f
+            }
+
+            states.observeState(this, RegisterViewState::passwordTip) {
                 binding?.tvLabel?.isVisible = it
+            }
+
+            states.observeState(this, RegisterViewState::rePasswordTip) {
+                binding?.tvReLabel?.isVisible = it
             }
         }
     }
 
     private fun initViewEvents() {
+
         viewModel.viewEvents.observeEvent(this) {
             when (it) {
-                is LoginViewEvent.ShowLoadingDialog -> showLoadingDialog()
-                is LoginViewEvent.DismissLoadingDialog -> dismissLoadingDialog()
-                is LoginViewEvent.ShowToast -> toast(it.message)
-                is LoginViewEvent.LoginSuc -> {
+                is RegisterViewEvent.ShowToast -> toast(it.message)
+                is RegisterViewEvent.ShowLoadingDialog -> showLoadingDialog()
+                is RegisterViewEvent.DismissLoadingDialog -> dismissLoadingDialog()
+                is RegisterViewEvent.RegisterSuc -> {
                     openActivity<MainActivity>()
                 }
             }
         }
     }
 
-    //test
     private var progressDialog: ProgressDialog? = null
 
     private fun showLoadingDialog() {

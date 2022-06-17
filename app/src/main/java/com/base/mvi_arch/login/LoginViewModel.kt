@@ -52,6 +52,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private fun login() {
+        //在一个SharedFlow上调用Flow.collect()时，不是在收集它的所有事件。相反，订阅的是在该订阅存在时被发出的事件
         viewModelScope.launch {
             flow {
                 emit(loginLogic())
