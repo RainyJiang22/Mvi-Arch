@@ -1,5 +1,7 @@
 package com.base.mvi_arch
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
@@ -25,5 +27,8 @@ fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> {
 }
 
 
+fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, length).show()
+}
 
 
