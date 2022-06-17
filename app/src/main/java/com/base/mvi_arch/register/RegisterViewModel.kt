@@ -1,6 +1,7 @@
 package com.base.mvi_arch.register
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.base.mvi_arch.PageState
@@ -81,6 +82,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
 
     private suspend fun registerLogic(): UserInfoResponse {
         withState(viewStates) {
+            Log.d("Register", "registerLogic:${it.userName},${it.password},${it.rePassword}")
             when (val result =
                 repository.getRegisterResponse(it.userName, it.password, it.rePassword)) {
 

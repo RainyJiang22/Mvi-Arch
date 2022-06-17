@@ -21,7 +21,7 @@ data class RegisterViewState(
         get() = password.length in 1..5
 
     val rePasswordTip: Boolean
-        get() = password != rePassword && password.isNotEmpty()
+        get() = password != rePassword && password.isNotEmpty() && rePassword.isNotEmpty()
 }
 
 sealed class RegisterViewEvent {

@@ -47,7 +47,7 @@ interface WanApi {
     suspend fun register(
         @Field("username") username: String,
         @Field("password") password: String,
-        @Field("repassword") rePassword: String
+        @Field("repassword") repassowrd: String
     ): ApiResponse<UserInfoResponse>
 
 }
