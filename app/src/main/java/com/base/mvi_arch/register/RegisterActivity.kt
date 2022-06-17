@@ -7,7 +7,6 @@ import androidx.core.widget.addTextChangedListener
 import com.base.mvi_arch.MainActivity
 import com.base.mvi_arch.base.BaseActivity
 import com.base.mvi_arch.databinding.ActivityRegisterBinding
-import com.base.mvi_arch.login.LoginViewState
 import com.base.mvi_arch.toast
 import com.base.mvi_core.observeEvent
 import com.base.mvi_core.observeState
