@@ -79,7 +79,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 is LoginViewEvent.DismissLoadingDialog -> dismissLoadingDialog()
                 is LoginViewEvent.ShowToast -> toast(it.message)
                 is LoginViewEvent.LoginSuc -> {
-                    openActivity<MainActivity>()
+                    toast(it.userInfoResponse.toString())
+                    openActivity<MainActivity>(
+                        "user" to it.userInfoResponse.username,
+                        "password" to it.userInfoResponse.password
+                    )
                 }
             }
         }
