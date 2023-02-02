@@ -44,7 +44,7 @@ abstract class BaseActivity<V : ViewBinding, VM : AndroidViewModel> : AppCompatA
         val aClass = types[0] as Class<V>
         try {
             binding =
-                aClass.getDeclaredMethod("inflate", LayoutInflater::class.java).invoke(null, getLayoutInflater()) as V?
+                aClass.getDeclaredMethod("inflate", LayoutInflater::class.java).invoke(null, layoutInflater) as V?
             super.setContentView(binding?.root)
         } catch (e: Error) {
             e.printStackTrace();

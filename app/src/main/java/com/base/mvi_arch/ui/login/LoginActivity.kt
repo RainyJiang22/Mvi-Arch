@@ -1,19 +1,17 @@
-package com.base.mvi_arch.login
+package com.base.mvi_arch.ui.login
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import com.base.mvi_arch.MainActivity
+import com.base.mvi_arch.ui.main.MainActivity
 import com.base.mvi_arch.base.BaseActivity
 import com.base.mvi_arch.databinding.ActivityLoginBinding
-import com.base.mvi_arch.register.RegisterActivity
+import com.base.mvi_arch.ui.register.RegisterActivity
 import com.base.mvi_arch.toast
 import com.base.mvi_core.observeEvent
 import com.base.mvi_core.observeState
 import com.drake.serialize.intent.openActivity
-import com.drake.statelayout.state
 
 /**
  * @author jiangshiyu

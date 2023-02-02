@@ -1,4 +1,4 @@
-package com.base.mvi_arch.login
+package com.base.mvi_arch.ui.login
 
 import android.app.Application
 import android.util.Log

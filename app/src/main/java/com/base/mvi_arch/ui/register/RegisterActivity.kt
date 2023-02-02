@@ -1,10 +1,10 @@
-package com.base.mvi_arch.register
+package com.base.mvi_arch.ui.register
 
 import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import com.base.mvi_arch.MainActivity
+import com.base.mvi_arch.ui.main.MainActivity
 import com.base.mvi_arch.base.BaseActivity
 import com.base.mvi_arch.databinding.ActivityRegisterBinding
 import com.base.mvi_arch.toast

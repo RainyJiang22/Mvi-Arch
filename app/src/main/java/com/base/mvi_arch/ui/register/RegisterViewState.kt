@@ -1,4 +1,4 @@
-package com.base.mvi_arch.register
+package com.base.mvi_arch.ui.register
 
 import com.base.mvi_arch.data.UserInfoResponse
 
