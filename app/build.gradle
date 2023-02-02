@@ -53,7 +53,10 @@ dependencies {
     //web service
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.orhanobut:logger:2.2.0'
 
+    //state
     implementation 'com.github.liangjingkanji:StateLayout:1.2.0'
     implementation 'com.github.liangjingkanji:Serialize:1.2.3'
 
