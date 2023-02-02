@@ -16,8 +16,10 @@ import com.base.mvi_arch.ui.main.action.MainViewAction
 import com.base.mvi_arch.ui.main.factory.MainFragmentFactory
 import com.base.mvi_arch.ui.main.state.MainViewState
 import com.base.mvi_arch.ui.main.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
 
