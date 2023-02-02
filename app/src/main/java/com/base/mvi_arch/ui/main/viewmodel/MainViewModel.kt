@@ -15,11 +15,10 @@ import kotlinx.coroutines.launch
  * @author jiangshiyu
  * @date 2023/2/2
  */
-class MainViewModel(application: Application, private val savedHandle: SavedStateHandle) :
-    AndroidViewModel(application) {
-
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
+        private val savedHandle: SavedStateHandle = SavedStateHandle()
         private const val SELECT_TAB_INDEX = "selected_tab_index"
     }
 

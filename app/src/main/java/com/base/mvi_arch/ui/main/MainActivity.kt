@@ -26,16 +26,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun onBundle(bundle: Bundle) {
-
     }
 
-    private val mViewModel by viewModels<MainViewModel>()
 
     override fun init(savedInstanceState: Bundle?) {
         initWindow()
         initView()
         registerUIStateCallback()
-        mViewModel.dispatch(MainViewAction.GetCurrentTabIndex)
+        viewModel.dispatch(MainViewAction.GetCurrentTabIndex)
     }
 
     private fun initWindow() {
@@ -64,14 +62,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             ?.setTabSelectedListener(object : BottomNavigationBar.SimpleOnTabSelectedListener() {
                 override fun onTabSelected(position: Int) {
                     binding?.viewpager?.currentItem = position
-                    mViewModel.dispatch(MainViewAction.SaveCurrentTabIndex(position))
+                    viewModel.dispatch(MainViewAction.SaveCurrentTabIndex(position))
                 }
             })?.initialise()
     }
 
     private fun registerUIStateCallback() {
         lifecycleScope.launchWhenResumed {
-            mViewModel.state.flowWithLifecycle(lifecycle).collectLatest { viewState ->
+            viewModel.state.flowWithLifecycle(lifecycle).collectLatest { viewState ->
                 when (viewState) {
                     is MainViewState.InitialDefaultTab -> {
                         binding?.bottomNavigationView?.selectTab(viewState.index)
