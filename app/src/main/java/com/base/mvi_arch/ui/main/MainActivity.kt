@@ -72,8 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     private fun registerUIStateCallback() {
         lifecycleScope.launchWhenResumed {
-            viewModel.state.flowWithLifecycle(lifecycle).distinctUntilChanged()
-                .collect { viewState ->
+            viewModel.state.flowWithLifecycle(lifecycle).collectLatest { viewState ->
                     when (viewState) {
                         is MainViewState.InitialDefaultTab -> {
                             binding?.bottomNavigationView?.selectTab(viewState.index)

@@ -80,7 +80,7 @@ data class Head(
 
 data class PagePara(
     @SerializedName("pageIndex")
-    val pageIndex: Int,
+    var pageIndex: Int,
 
     @SerializedName("pageSize")
     val pageSize: Int,

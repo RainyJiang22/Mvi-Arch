@@ -23,18 +23,15 @@ class TravelPageAdapter(fragment: Fragment, private val travelResponse: TravelRe
 
     override fun createFragment(position: Int): Fragment {
         val tab = travelResponse.tabs[position]
-        var fragment = fragments[tab.groupChannelCode]
-        if (fragment == null) {
-            val bundle = Bundle()
-            with(bundle) {
-                putString(TravelTabFragment.URL, travelResponse.url)
-                putString(TravelTabFragment.PARAMS, gson.toJson(travelResponse.params))
-                putString(TravelTabFragment.GROUP_CHANNEL_CODE, tab.groupChannelCode)
-                putInt(TravelTabFragment.TYPE, tab.type)
-            }
-            fragment = TravelTabFragment.newInstance(bundle)
-            fragments[tab.groupChannelCode] = fragment
+        val bundle = Bundle()
+        with(bundle) {
+            putString(TravelTabFragment.URL, travelResponse.url)
+            putString(TravelTabFragment.PARAMS, gson.toJson(travelResponse.params))
+            putString(TravelTabFragment.GROUP_CHANNEL_CODE, tab.groupChannelCode)
+            putInt(TravelTabFragment.TYPE, tab.type)
         }
+        val fragment = TravelTabFragment.newInstance(bundle)
+        fragments[tab.groupChannelCode] = fragment
         return fragment
     }
 }

@@ -2,6 +2,7 @@ package com.base.mvi_arch.network
 
 import com.base.mvi_arch.data.Params
 import com.base.mvi_arch.data.TravelResponse
+import com.base.mvi_arch.data.TravelTabResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -17,5 +18,5 @@ interface TravelApi {
     suspend fun getTravelTab(@Url url: String = URLS.TRAVEL_TAB_URL): TravelResponse
 
     @POST
-    suspend fun getTravelCategoryList(@Url url: String, @Body params: Params): TravelResponse
+    suspend fun getTravelCategoryList(@Url url: String, @Body params: Params): TravelTabResponse
 }
