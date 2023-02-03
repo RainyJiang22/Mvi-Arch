@@ -12,11 +12,10 @@ import com.base.mvi_arch.ui.travel.fragment.TravelTabFragment
  * @author jiangshiyu
  * @date 2023/2/3
  */
-class TravelPageAdapter(fragment: Fragment, val travelResponse: TravelResponse) :
+class TravelPageAdapter(fragment: Fragment, private val travelResponse: TravelResponse) :
     FragmentStateAdapter(fragment) {
 
     private val fragments by lazy { ArrayMap<String, Fragment?>(travelResponse.tabs.size) }
-
 
     override fun getItemCount(): Int {
         return travelResponse.tabs.size
@@ -26,12 +25,14 @@ class TravelPageAdapter(fragment: Fragment, val travelResponse: TravelResponse) 
         val tab = travelResponse.tabs[position]
         var fragment = fragments[tab.groupChannelCode]
         if (fragment == null) {
-            fragment = TravelTabFragment.newInstance(Bundle().apply {
+            val bundle = Bundle()
+            with(bundle) {
                 putString(TravelTabFragment.URL, travelResponse.url)
                 putString(TravelTabFragment.PARAMS, gson.toJson(travelResponse.params))
                 putString(TravelTabFragment.GROUP_CHANNEL_CODE, tab.groupChannelCode)
                 putInt(TravelTabFragment.TYPE, tab.type)
-            })
+            }
+            fragment = TravelTabFragment.newInstance(bundle)
             fragments[tab.groupChannelCode] = fragment
         }
         return fragment

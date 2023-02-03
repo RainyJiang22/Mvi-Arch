@@ -66,17 +66,15 @@ class TravelFragment : BaseFragment<FragmentTravelBinding, TravelViewModel>() {
 
     private fun initTravelTab(travelResponse: TravelResponse) {
         for (tab in travelResponse.tabs) {
-            binding?.tabLayout?.let {
-                it.addTab(it.newTab())
-            }
-            binding?.viewpager?.apply {
-                adapter = TravelPageAdapter(this@TravelFragment, travelResponse)
-                offscreenPageLimit = travelResponse.tabs.size
-                TabLayoutMediator(binding!!.tabLayout, binding!!.viewpager) { tab, position ->
-                    tab.text = travelResponse.tabs[position].labelName
-                }.attach()
-            }
+            binding?.tabLayout?.newTab()?.let { binding?.tabLayout?.addTab(it) }
         }
+
+        binding?.viewpager?.adapter = TravelPageAdapter(this, travelResponse)
+        binding?.viewpager?.offscreenPageLimit = travelResponse.tabs.size
+
+        TabLayoutMediator(binding!!.tabLayout, binding!!.viewpager) { tab, position ->
+            tab.text = travelResponse.tabs[position].labelName
+        }.attach()
     }
 
     override fun loadPageData() {
