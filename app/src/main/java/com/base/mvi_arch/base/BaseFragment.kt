@@ -24,6 +24,8 @@ abstract class BaseFragment<V : ViewBinding, VM : AndroidViewModel> : Fragment()
         ).get(clazz)
     }
 
+    private var mHasLoadedData = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
@@ -34,7 +36,7 @@ abstract class BaseFragment<V : ViewBinding, VM : AndroidViewModel> : Fragment()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return setContentView(inflater, container)
     }
@@ -59,6 +61,10 @@ abstract class BaseFragment<V : ViewBinding, VM : AndroidViewModel> : Fragment()
         super.onResume()
         if (isAdded && !isHidden) {
             onVisible()
+        }
+        if (!mHasLoadedData) {
+            loadPageData()
+            mHasLoadedData = true
         }
     }
 
@@ -101,6 +107,7 @@ abstract class BaseFragment<V : ViewBinding, VM : AndroidViewModel> : Fragment()
 
     abstract fun init(savedInstanceState: Bundle?)
 
+    abstract fun loadPageData()
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -15,4 +15,8 @@ class VideoFragment: BaseFragment<FragmentVideoBinding,EmptyViewModel>() {
 
     override fun init(savedInstanceState: Bundle?) {
     }
+
+    override fun loadPageData() {
+
+    }
 }

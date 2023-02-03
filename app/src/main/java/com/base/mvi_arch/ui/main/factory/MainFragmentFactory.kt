@@ -2,7 +2,7 @@ package com.base.mvi_arch.ui.main.factory
 
 import android.util.SparseArray
 import androidx.fragment.app.Fragment
-import com.base.mvi_arch.ui.travel.TravelFragment
+import com.base.mvi_arch.ui.travel.fragment.TravelFragment
 import com.base.mvi_arch.ui.video.VideoFragment
 
 /**

@@ -7,14 +7,14 @@ import com.google.gson.annotations.SerializedName
  * @date 2023/2/2
  */
 data class TravelResponse(
-    @SerializedName("url")
-    val url: String,
-
     @SerializedName("params")
     val params: Params,
 
     @SerializedName("tabs")
-    val tabs: List<Tab>
+    val tabs: List<Tab>,
+
+    @SerializedName("url")
+    val url: String,
 )
 
 data class Tab(

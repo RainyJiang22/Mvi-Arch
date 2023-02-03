@@ -10,11 +10,11 @@ import dagger.hilt.InstallIn
  * @date 2023/2/2
  */
 
-@Module
-@InstallIn(SingleTonModule::class)
-class SingleTonModule {
-
-    fun providerGson(): Gson {
-        return Gson()
-    }
-}
+//@Module
+//@InstallIn(SingleTonModule::class)
+//class SingleTonModule {
+//
+//    fun providerGson(): Gson {
+//        return Gson()
+//    }
+//}
