@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="selected_tint_color">#FFA100</color>
     <color name="default_tint_color">#B2B2B2</color>
+    <color name="black54">#8A000000</color>
+    <color name="transparent_white_80_percent">#CBFFFFFF</color>
+    <color name="common_text_color">#333333</color>
 </resources>
