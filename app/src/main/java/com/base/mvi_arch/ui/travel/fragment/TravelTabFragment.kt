@@ -12,7 +12,11 @@ import com.base.mvi_arch.base.EmptyViewModel
 import com.base.mvi_arch.data.Params
 import com.base.mvi_arch.databinding.FragmentTravelListBinding
 import com.base.mvi_arch.global.fromJson
+import com.base.mvi_arch.startActivity
 import com.base.mvi_arch.ui.travel.action.TravelTabViewAction
+import com.base.mvi_arch.ui.travel.activity.TravelDetailActivity
+import com.base.mvi_arch.ui.travel.activity.TravelDetailActivity.Companion.KEY_TITLE
+import com.base.mvi_arch.ui.travel.activity.TravelDetailActivity.Companion.KEY_URL
 import com.base.mvi_arch.ui.travel.adapter.TravelTabAdapter
 import com.base.mvi_arch.ui.travel.state.TravelTabViewState
 import com.base.mvi_arch.ui.travel.viewmodel.TravelTabViewModel
@@ -118,7 +122,11 @@ class TravelTabFragment : BaseFragment<FragmentTravelListBinding, TravelTabViewM
                 it.h5Url != null
             }?.h5Url
             h5Url?.let {
-                //TODO 旅游详情界面
+                //旅游详情界面
+                startActivity<TravelDetailActivity>(Bundle().apply {
+                    putString(KEY_TITLE, title)
+                    putString(KEY_URL, it)
+                })
             }
         }
         binding?.rcvVideo?.adapter = mAdapter
