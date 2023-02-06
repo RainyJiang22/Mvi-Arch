@@ -1,6 +1,7 @@
 package com.base.mvi_arch.network
 
 import com.base.mvi_arch.data.VideoListModel
+import com.base.mvi_arch.data.VideoListResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
@@ -16,5 +17,5 @@ interface VideoApi {
         @Url url: String = URLS.VIDEO_LIST_URL,
         @Query("page") page: Int,
         @Query("size") size: Int = 10,
-    ): VideoListModel
+    ): VideoListResponse
 }
