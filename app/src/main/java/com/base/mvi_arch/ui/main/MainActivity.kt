@@ -17,6 +17,7 @@ import com.base.mvi_arch.ui.main.factory.MainFragmentFactory
 import com.base.mvi_arch.ui.main.state.MainViewState
 import com.base.mvi_arch.ui.main.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 
@@ -72,13 +73,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     private fun registerUIStateCallback() {
         lifecycleScope.launchWhenResumed {
-            viewModel.state.flowWithLifecycle(lifecycle).collectLatest { viewState ->
-                    when (viewState) {
-                        is MainViewState.InitialDefaultTab -> {
-                            binding?.bottomNavigationView?.selectTab(viewState.index)
-                        }
+            viewModel.state.collect { viewState ->
+                when (viewState) {
+                    is MainViewState.InitialDefaultTab -> {
+                        binding?.bottomNavigationView?.selectTab(viewState.index)
                     }
                 }
+            }
         }
     }
 

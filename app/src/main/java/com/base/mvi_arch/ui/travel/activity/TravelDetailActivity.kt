@@ -28,8 +28,8 @@ class TravelDetailActivity : BaseActivity<ActivityTravelDetailBinding, EmptyView
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        initWindow()
         initView()
+        initWindow()
     }
 
     private fun initWindow() {
@@ -41,7 +41,7 @@ class TravelDetailActivity : BaseActivity<ActivityTravelDetailBinding, EmptyView
     private fun initView() {
         binding?.toolbar?.apply {
             title = intent.getStringExtra(KEY_TITLE)
-            setSupportActionBar(this)
+          //  setSupportActionBar(this)
             supportActionBar?.setHomeButtonEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             setNavigationOnClickListener {
