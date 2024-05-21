@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.base.mvi_arch.data.TravelResponse
 import com.base.mvi_arch.network.KtorClient
 import com.base.mvi_arch.network.TravelApiService
 import com.base.mvi_arch.network.URLS
@@ -66,28 +67,30 @@ class TravelViewModel(application: Application) : AndroidViewModel(application) 
      * 获取Tab数据
      */
     private fun getTravelTabs() {
-//        viewModelScope.launch {
-//            try {
-//                val response: String = KtorClient.client.get(URLS.TRAVEL_TAB_URL).body()
-//                withContext(Dispatchers.Main) {
-//                    // 在主线程上处理响应数据
-//                    Log.d(TAG, "Response: $response")
-//                }
-//            } catch (e: Exception) {
-//                withContext(Dispatchers.Main) {
-//                    Log.e(TAG, "Error: ${e.message}", e)
-//                }
-//            }
-//        }
         viewModelScope.launch {
-            kotlin.runCatching {
-                TravelApiService.getTravelTab()
-            }.onSuccess {
-                _state.value = TravelViewState.LoadSuccess(it)
-            }.onFailure {
-                _state.value = TravelViewState.LoadFail(it.message.toString())
+            try {
+                val response: String = KtorClient.client.get(URLS.TRAVEL_TAB_URL).body()
+                withContext(Dispatchers.Main) {
+                    // 在主线程上处理响应数据
+                    Log.i(TAG, "Response: $response")
+//                    _state.value = TravelViewState.LoadSuccess(response)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e(TAG, "Error: ${e.message}", e)
+                    _state.value = TravelViewState.LoadFail(e.message.toString())
+                }
             }
         }
+//        viewModelScope.launch {
+//            kotlin.runCatching {
+//                TravelApiService.getTravelTab()
+//            }.onSuccess {
+//                _state.value = TravelViewState.LoadSuccess(it)
+//            }.onFailure {
+//                _state.value = TravelViewState.LoadFail(it.message.toString())
+//            }
+//        }
     }
 
 

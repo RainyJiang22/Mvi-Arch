@@ -72,7 +72,7 @@ class TravelTabFragment : BaseFragment<FragmentTravelListBinding, TravelTabViewM
             mRequestParams = fromJson(bundle.getString(PARAMS).toString())
             mGroupChannelCode = bundle.getString(GROUP_CHANNEL_CODE).toString()
             mRequestParams.groupChannelCode = bundle.getString(GROUP_CHANNEL_CODE).toString()
-            mRequestParams.type = bundle.getInt(TYPE)
+            mRequestParams.type = bundle.getInt(TYPE).toString()
         }
     }
 
