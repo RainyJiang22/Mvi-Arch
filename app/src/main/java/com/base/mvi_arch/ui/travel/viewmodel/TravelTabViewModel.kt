@@ -4,9 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.base.mvi_arch.data.Params
-import com.base.mvi_arch.data.VideoListModel
-import com.base.mvi_arch.network.KtorService
-import com.base.mvi_arch.network.TravelApi
 import com.base.mvi_arch.network.TravelApiService
 import com.base.mvi_arch.ui.travel.action.TravelTabViewAction
 import com.base.mvi_arch.ui.travel.state.TravelTabViewState
@@ -62,8 +59,7 @@ class TravelTabViewModel(application: Application) : AndroidViewModel(applicatio
 
     private fun getTravelCategoryList(url: String, params: Params) {
         viewModelScope.launch {
-            KtorService.getTavelCategoryList(url, params)
-         /*   kotlin.runCatching {
+            kotlin.runCatching {
                 TravelApiService.getTravelCategoryList(url, params)
             }.onSuccess {
                 _state.emit(
@@ -72,7 +68,7 @@ class TravelTabViewModel(application: Application) : AndroidViewModel(applicatio
                 )
             }.onFailure {
                 _state.emit(TravelTabViewState.LoadError(it.message.toString()))
-            }*/
+            }
         }
     }
 
