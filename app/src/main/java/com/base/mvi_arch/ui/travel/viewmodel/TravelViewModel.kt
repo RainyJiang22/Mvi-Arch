@@ -3,6 +3,7 @@ package com.base.mvi_arch.ui.travel.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.base.mvi_arch.network.KtorService
 import com.base.mvi_arch.network.TravelApiService
 import com.base.mvi_arch.ui.travel.action.TravelViewAction
 import com.base.mvi_arch.ui.travel.state.TravelViewState
@@ -54,13 +55,14 @@ class TravelViewModel(application: Application) : AndroidViewModel(application) 
      */
     private fun getTravelTabs() {
         viewModelScope.launch {
-            kotlin.runCatching {
-                TravelApiService.getTravelTab()
-            }.onSuccess {
-                _state.value = TravelViewState.LoadSuccess(it)
-            }.onFailure {
-                _state.value = TravelViewState.LoadFail(it.message.toString())
-            }
+             KtorService.getTravelTab()
+//            kotlin.runCatching {
+//                TravelApiService.getTravelTab()
+//            }.onSuccess {
+//                _state.value = TravelViewState.LoadSuccess(it)
+//            }.onFailure {
+//                _state.value = TravelViewState.LoadFail(it.message.toString())
+//            }
         }
     }
 

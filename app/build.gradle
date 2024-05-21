@@ -86,4 +86,10 @@ dependencies {
 
     implementation project(':mvi-core')
 
+    //ktor client
+    def ktor_version = "2.3.11"
+    implementation "io.ktor:ktor-client-core:$ktor_version"
+    implementation "io.ktor:ktor-client-android:$ktor_version"
+    implementation "io.ktor:ktor-client-serialization:$ktor_version"
+    implementation "io.ktor:ktor-client-logging:$ktor_version"
 }
