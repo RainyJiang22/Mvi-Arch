@@ -3,11 +3,15 @@ package com.base.mvi_arch.ui.travel.activity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.LinearLayout
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.base.mvi_arch.base.BaseActivity
 import com.base.mvi_arch.base.EmptyViewModel
 import com.base.mvi_arch.databinding.ActivityTravelDetailBinding
+import com.base.mvi_arch.event.GlobalEvent
+import com.biubiu.eventbus.post.postEvent
 import com.just.agentweb.AgentWeb
 
 /**

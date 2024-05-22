@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.map
-import com.zj.mvi.core.LiveEvents
 import kotlin.reflect.KProperty1
 
 fun <T, A> LiveData<T>.observeState(

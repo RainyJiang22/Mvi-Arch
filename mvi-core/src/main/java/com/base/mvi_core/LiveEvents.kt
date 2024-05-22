@@ -1,4 +1,4 @@
-package com.zj.mvi.core
+package com.base.mvi_core
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

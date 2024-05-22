@@ -67,8 +67,7 @@ class TravelViewModel(application: Application) : AndroidViewModel(application) 
      * 获取Tab数据
      */
     private fun getTravelTabs() {
-        viewModelScope.launch {
-            try {
+/*            try {
                 val response: String = KtorClient.client.get(URLS.TRAVEL_TAB_URL).body()
                 withContext(Dispatchers.Main) {
                     // 在主线程上处理响应数据
@@ -81,17 +80,15 @@ class TravelViewModel(application: Application) : AndroidViewModel(application) 
                     _state.value = TravelViewState.LoadFail(e.message.toString())
                 }
             }
+        }*/
+        viewModelScope.launch {
+            kotlin.runCatching {
+                TravelApiService.getTravelTab()
+            }.onSuccess {
+                _state.value = TravelViewState.LoadSuccess(it)
+            }.onFailure {
+                _state.value = TravelViewState.LoadFail(it.message.toString())
+            }
         }
-//        viewModelScope.launch {
-//            kotlin.runCatching {
-//                TravelApiService.getTravelTab()
-//            }.onSuccess {
-//                _state.value = TravelViewState.LoadSuccess(it)
-//            }.onFailure {
-//                _state.value = TravelViewState.LoadFail(it.message.toString())
-//            }
-//        }
     }
-
-
 }

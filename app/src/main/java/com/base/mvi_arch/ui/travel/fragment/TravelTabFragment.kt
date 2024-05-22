@@ -1,6 +1,7 @@
 package com.base.mvi_arch.ui.travel.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import com.base.mvi_arch.base.BaseFragment
 import com.base.mvi_arch.base.EmptyViewModel
 import com.base.mvi_arch.data.Params
 import com.base.mvi_arch.databinding.FragmentTravelListBinding
+import com.base.mvi_arch.event.GlobalEvent
 import com.base.mvi_arch.global.fromJson
 import com.base.mvi_arch.startActivity
 import com.base.mvi_arch.ui.travel.action.TravelTabViewAction
@@ -20,6 +22,10 @@ import com.base.mvi_arch.ui.travel.activity.TravelDetailActivity.Companion.KEY_U
 import com.base.mvi_arch.ui.travel.adapter.TravelTabAdapter
 import com.base.mvi_arch.ui.travel.state.TravelTabViewState
 import com.base.mvi_arch.ui.travel.viewmodel.TravelTabViewModel
+import com.biubiu.eventbus.observe.observeEvent
+import com.biubiu.eventbus.post.postEvent
+import com.biubiu.eventbus.store.ApplicationScopeViewModelProvider
+import com.biubiu.eventbus.util.removeStickyEvent
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -84,10 +90,12 @@ class TravelTabFragment : BaseFragment<FragmentTravelListBinding, TravelTabViewM
                         is TravelTabViewState.LoadingState -> {
                             binding?.swipeRefreshLayout?.isRefreshing = true
                         }
+
                         is TravelTabViewState.RefreshSuccess -> {
                             binding?.swipeRefreshLayout?.isRefreshing = false
                             mAdapter.setList(viewState.travelList)
                         }
+
                         is TravelTabViewState.LoadMoreSuccess -> {
                             binding?.swipeRefreshLayout?.isRefreshing = false
                             mAdapter.addData(viewState.travelList)
@@ -97,6 +105,7 @@ class TravelTabFragment : BaseFragment<FragmentTravelListBinding, TravelTabViewM
                                 mAdapter.loadMoreModule.loadMoreComplete()
                             }
                         }
+
                         is TravelTabViewState.LoadError -> {
                             binding?.swipeRefreshLayout?.isRefreshing = false
                             Toast.makeText(requireContext(), viewState.errorMsg, Toast.LENGTH_LONG)
@@ -142,6 +151,13 @@ class TravelTabFragment : BaseFragment<FragmentTravelListBinding, TravelTabViewM
         mCurrentPage = 0
         mRequestParams.pagePara.pageIndex = mCurrentPage
         viewModel.dispatch(TravelTabViewAction.LoadMore(mRequestUrl, mRequestParams))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observeEvent<GlobalEvent> {
+            Log.i("Event", "received GlobalEvent ${it.name}")
+        }
     }
 
 
