@@ -39,6 +39,12 @@ android {
 
 dependencies {
 
+    // region ArrowKt (Functional Programming)
+    implementation platform("io.arrow-kt:arrow-stack:1.0.1")
+    implementation "io.arrow-kt:arrow-core"
+    // endregion
+
+
     implementation 'androidx.core:core-ktx:1.9.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -98,4 +104,6 @@ dependencies {
     implementation "io.ktor:ktor-client-content-negotiation:$ktor_version" // ContentNegotiation 支持
 
     implementation 'com.github.biubiuqiu0:flow-event-bus:1.0.1'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
