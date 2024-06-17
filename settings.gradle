@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "Mvi-Arch"
 include ':app'
 include ':mvi-core'
+include ':flowcache'
