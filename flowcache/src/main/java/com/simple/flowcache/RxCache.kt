@@ -11,6 +11,7 @@ import com.simple.flowcache.exception.NoCacheException
 import com.simple.flowcache.model.RealEntity
 import com.simple.flowcache.type.CacheType
 import com.simple.flowcache.util.CacheLog
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.lang.reflect.Type
 
@@ -95,16 +96,14 @@ object RxCache {
      * @param key  缓存key
      */
     fun <T> rxGet(key: String, type: Type): Flow<T?> {
-        return { get<T>(key, type) }.asFlow()
-            // 这个过程不会发生异常，不需要处理
-//            .onCompletion {
-//                if (it != null) {
-//                    // 发生了异常，则发送一个空的
-//                    emit(null)
-//                }
-//            }
-//            .catch { CacheLog.e(TAG, it) }
-            .flowOn(Dispatchers.IO)
+        return flow<T> {
+            val value = get<T>(key,type)
+            if (value != null) {
+                emit(value)
+            } else {
+                throw NoCacheException()
+            }
+        }.flowOn(Dispatchers.IO)
     }
 
     internal fun <T> rxGetInner(key: String, type: Type): Flow<T> {
@@ -141,8 +140,24 @@ object RxCache {
     }
 
     /**
-     * 通用缓存方法
+     * 写一个通用缓存方法
      */
+    fun <T> rxCache(key: String, value: T, duration: Long = NEVER_EXPIRE): Flow<T> {
+        check(duration == NEVER_EXPIRE || duration > 0)
+        return flow<T> {
+            val entity = RealEntity(value, duration)
+            val result = withContext(Dispatchers.IO) {
+                cacheCore.save(key, entity)
+            }
+            if (result) {
+                emit(value)
+            } else {
+                throw Exception("Failed to save data")
+            }
+        }.catch { e ->
+            throw e
+        }.flowOn(Dispatchers.IO)
+    }
 
 
     /**
